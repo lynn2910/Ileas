@@ -16,8 +16,10 @@ dofile("config.lua"); ---> configuration
 -- load assets
 dofile("code/load.lua");
 dofile("code/save.lua");
+dofile("code/game/init.lua");
 
 -- import draw and update
 dofile("code/draw.lua");
 dofile("code/update.lua");
 dofile("code/keyboard.lua");
+dofile("code/mouse.lua");

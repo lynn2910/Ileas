@@ -25,6 +25,7 @@ function keyboard(key, state, held)
             -- new game
             print("new game")
             MENU_CTG = "new";
+            INIT_GAME();
           elseif MENU_SELECTED == 1 then
             -- load game
             print("load game")
@@ -62,11 +63,52 @@ function keyboard(key, state, held)
           end
         end
       end
-    end
+    elseif STATE == "game" then
+      -- game
+      if key == "escape" then
+        MENU_CTG = "main";
+        STATE = "menu"
+      else 
+        
+        if key == "up" and (KEYS["right"].state == 0 and KEYS["left"].state == 0 and KEYS["down"].state == 0) then
+          -- up
+          PLAYER_MOVE = "UP"
+        elseif key == "down" and (KEYS["right"].state == 0 and KEYS["left"].state == 0 and KEYS["up"].state == 0) then
+          -- down
+          PLAYER_MOVE = "DOWN"
+        elseif key == "right" and (KEYS["down"].state == 0 and KEYS["up"].state == 0 and KEYS["left"].state == 0) then
+          -- right
+          PLAYER_MOVE = "RIGHT"
+        elseif key == "left" and (KEYS["down"].state == 0 and KEYS["up"].state == 0 and KEYS["right"].state == 0) then
+          -- left
+          PLAYER_MOVE = "LEFT"
+        elseif key == "up" and (KEYS["right"].state ~= 0 and KEYS["left"].state == 0 and KEYS["down"].state == 0) then
+          -- up right
+          PLAYER_MOVE = "UP_RIGHT"
+        elseif key == "up" and (KEYS["left"].state ~= 0 and KEYS["right"].state == 0 and KEYS["down"].state == 0) then
+          -- up left
+          PLAYER_MOVE = "UP_LEFT"
+        elseif key == "down" and (KEYS["right"].state ~= 0 and KEYS["left"].state == 0) then
+          -- down right
+          PLAYER_MOVE = "DOWN_RIGHT"
+        elseif key == "down" and (KEYS["left"].state ~= 0 and KEYS["right"].state == 0) then
+          -- down left
+          PLAYER_MOVE = "DOWN_LEFT"
+        elseif KEYS["up"].state ~= 0 and KEYS["down"].state ~= 0 and KEYS["left"].state ~= 0 and KEYS["right"].state ~= 0 then
+          PLAYER_MOVE = "IDLE_DOWN"
+        end;
+        
+        if key == "lshift" or key == "rshift" then
+          -- sneak
+          MAX_PLAYER_MOVE = MAX_PLAYER_MOVE / 3;
+        elseif key ~= "lshift" and key ~= "rshift" then
+          MAX_PLAYER_MOVE = DEFAULT_MAX_PLAYER_MOVE
+        end
 
+      end
+    end
   end
 end
-
 
 
 

@@ -9,7 +9,7 @@ function love.draw()
     love.graphics.draw(assets.background, 0, 0, 0, 1, 1);
     
     if MENU_CTG == "main" then
-      love.graphics.setFont(MENU_DEFAULT_FONT);
+      love.graphics.setFont(fonts.MENU_DEFAULT_FONT);
       if MENU_SELECTED == 0 then  love.graphics.setColor(200, 0, 0, 1); else love.graphics.setColor(255, 255, 255, 1); end;
       love.graphics.printf("Nouvelle partie", 0, middleHeight-100, WIDTH, "center", 0); 
       if MENU_SELECTED == 1 then  love.graphics.setColor(200, 0, 0, 1); else love.graphics.setColor(255, 255, 255, 1); end;
@@ -20,7 +20,7 @@ function love.draw()
       love.graphics.printf("Succès", 0, middleHeight+50, WIDTH, "center", 0);
       if MENU_SELECTED == 4 then  love.graphics.setColor(200, 0, 0, 1); else love.graphics.setColor(255, 255, 255, 1); end;
       love.graphics.printf("Quitter", 0, middleHeight+100, WIDTH, "center", 0);
-      love.graphics.setFont(DEFAULT_FONT);
+      love.graphics.setFont(fonts.DEFAULT_FONT);
     else
       -- menu category
       if MENU_CTG == "success" then
@@ -28,7 +28,7 @@ function love.draw()
       elseif MENU_CTG == "options" then
         optionsMenu();
       elseif MENU_CTG == "new" then
-        newGame();
+        --newGame();
       elseif MENU_CTG == "load" then
         loadGame();
       end
@@ -52,6 +52,24 @@ function love.draw()
     end
 
     love.graphics.setColor(255, 255, 255, 1);
+
+
+  elseif STATE == "load" then
+    local Max = love.graphics.newText(fonts.MENU_DEFAULT_FONT, "Chargement...")
+    local lgtMax = (Max:getWidth()/2);
+    if LOAD_MESSAGE_STATE < 200 then
+      local t = love.graphics.newText(fonts.MENU_DEFAULT_FONT, "Chargement.")
+      love.graphics.draw(t, math.floor(WIDTH/2)-lgtMax, math.floor(HEIGHT/2));
+    elseif LOAD_MESSAGE_STATE < 400 then
+      local t = love.graphics.newText(fonts.MENU_DEFAULT_FONT, "Chargement..")
+      love.graphics.draw(t, math.floor(WIDTH/2)-lgtMax, math.floor(HEIGHT/2));
+    else
+      local t = love.graphics.newText(fonts.MENU_DEFAULT_FONT, "Chargement...")
+      love.graphics.draw(t, math.floor(WIDTH/2)-lgtMax, math.floor(HEIGHT/2));
+    end
+    LOAD_MESSAGE_STATE = (LOAD_MESSAGE_STATE + 2)%600;
+  elseif STATE == "game" then
+    Game:draw();
   end
 end
 
