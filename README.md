@@ -14,8 +14,6 @@
 - Donovan
 - Tristan
 
-*Les noms ont été protégés 😁*
-
 ## But du Projet:
 > L'objectif était de concevoir un Jeux Fantaisiste dans le style des jeux rétros.
 > ** **
